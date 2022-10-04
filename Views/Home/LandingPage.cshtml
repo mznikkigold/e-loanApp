@@ -1,0 +1,198 @@
+﻿
+@model IEnumerable<e_loanApp.Models.Transaction_Table>
+@{
+    ViewBag.Title = "LandingPage";
+}
+
+<div class="">
+    <div class="row">
+        <!-- sidebar -->
+        @*<div class="side-menu-container bg-white">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-puzzle-piece"></i> Components</a></li>
+                    <li><a href="#"><i class="fa fa-heart"></i> Extras</a></li>
+
+                    <li class="panel panel-default" id="dropdown">
+                        <a data-toggle="collapse" href="#dropdown-lvl1">
+                            <i class="fa fa-diamond"></i> Apps
+                            <span class="caret"></span>
+                        </a>
+                        <div id="dropdown-lvl1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#">Mail</a></li>
+                                    <li><a href="#">Calendar</a></li>
+                                    <li><a href="#">Ecommerce</a></li>
+                                    <li><a href="#">User</a></li>
+                                    <li><a href="#">Social</a></li>
+
+                                    <li class="panel panel-default" id="dropdown">
+                                        <a data-toggle="collapse" href="#dropdown-lvl2">
+                                            <i class="glyphicon glyphicon-off"></i> Sub Level <span class="caret"></span>
+                                        </a>
+                                        <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <ul class="nav navbar-nav">
+                                                    <li><a href="#">Link</a></li>
+                                                    <li><a href="#">Link</a></li>
+                                                    <li><a href="#">Link</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
+                </ul>
+            </div>*@
+        <!-- /.navbar-collapse -->
+        <!-- overlay to close sidebar on small screens -->
+        <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
+        <!-- note: in the layout margin auto is the key as sidebar is fixed -->
+        <div class="col-md-9 col-lg-12 ml-md-auto px-lg-5 py-lg-5 w-auto">
+            <!-- top nav -->
+            <nav class="w-100 d-flex px-4 py-2 mb-4 bg-white shadow-sm">
+                <!-- close sidebar -->
+                <button class="btn py-0" id="open-sidebar">
+                    <span class="bi bi-person text-primary h3">  Welcome @HttpContext.Current.User.Identity.Name</span>
+                </button>
+                <div class="dropdown ml-auto">
+                    <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
+                        <span>
+                            @ViewBag.Total
+                        </span>
+                        @*<span class="bi bi-person text-primary h4"></span>
+                        <span class="bi bi-chevron-down ml-1 mb-2 small"></span>*@
+                    </button>
+                    @*<div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown">
+                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                    </div>*@
+                </div>
+            </nav>
+            <!-- main content -->
+            <main class="container-fluid">
+                <section class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <!-- card -->
+                        <article class="p-4 rounded shadow-sm border-left mb-4 fourSections" style="border-left: 1px solid #01d28e !important; height: 80px;">
+                            <a href="#" class="d-flex align-items-center linkDashBoard" style="left: 15%; position: absolute;">
+                                <span class="h5 text-success" style="height: 35px; font-size: 17px;">  @Html.ActionLink("Open Payment", "OpenPayment", "Student")</span>
+                                @*<h5 class="ml-2">Open Payment</h5>*@
+                            </a>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="p-4 rounded shadow-sm border-left mb-4 fourSections" style="border-left: 1px solid #01d28e !important; height: 80px;">
+                            <a href="#" class="d-flex align-items-center linkDashBoard" style="left: 15%; position: absolute;">
+                                <span class="h5 text-success" style="height: 35px; font-size: 17px;"> @Html.ActionLink("Request For Loan", "RequestLoan", "Student")</span>
+                                @*<h5 class="ml-2">Request Loan</h5>*@
+                            </a>
+                        </article>
+                    </div>
+                </section>
+                <section class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <!-- card -->
+                        <article class="p-4 rounded shadow-sm border-left mb-4 fourSections" style="border-left: 1px solid #01d28e !important; height: 80px;">
+                            <a href="#" class="d-flex align-items-center linkDashBoard" style="left: 15%; position: absolute;">
+                                <span class="h5 text-success" style="height: 35px; font-size: 17px;"></span>
+                                @*<h5 class="ml-2">Loan History</h5>*@
+                                @Html.ActionLink("Loan History", "LoanRepayment", "Student")
+                            </a>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="p-4 rounded shadow-sm border-left mb-4 fourSections" style="border-left: 1px solid #01d28e !important; height: 80px;">
+                            <a href="#" class="d-flex align-items-center linkDashBoard" style="position:absolute;left: 15%;">
+                                <span class="h5 text-success" style="height: 35px; font-size: 17px;">@Html.ActionLink("Return Loan", "ReturnLoan", "Student")</span>
+                                @*<h5 class="ml-2">Return Loan</h5>*@
+                            </a>
+                        </article>
+                    </div>
+                </section>
+
+                @*<div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm border-left px-4" style="border-left: 1px solid #01d28e !important;">*@
+            <div class="row">
+            
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Transaction Table</h3>
+
+                                @*<div class="card-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                            <th>Sort Code</th>
+                                            <th>Account num</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ int rowNo = 0; }
+                                        @foreach (var history in Model)
+                                        {
+                                            <tr>
+                                                <td> @(rowNo += 1)</td>
+                                                <td>@Html.DisplayFor(modelItem => history.Receiver_Account_name)</td>
+                                                <td>₦@Html.DisplayFor(modelItem => history.amount)</td>
+                                                <td><span class="tag tag-success">@Html.DisplayFor(modelItem => history.Receiver_SortCode)</span></td>
+                                                <td>@Html.DisplayFor(modelItem => history.Reciever_Accountnum)</td>
+                                                <td>@Html.DisplayFor(modelItem => history.Transaction_Des)</td>
+                                            </tr>
+                                        }
+                                        @*<tr>
+            <td>219</td>
+            <td>Alexander Pierce</td>
+            <td>11-7-2014</td>
+            <td><span class="tag tag-warning">Pending</span></td>
+            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+        </tr>
+        <tr>
+            <td>657</td>
+            <td>Bob Doe</td>
+            <td>11-7-2014</td>
+            <td><span class="tag tag-primary">Approved</span></td>
+            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+        </tr>
+        <tr>
+            <td>175</td>
+            <td>Mike Doe</td>
+            <td>11-7-2014</td>
+            <td><span class="tag tag-danger">Denied</span></td>
+            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+        </tr>*@
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                @*</div>*@
+            </main>
+        </div>
+    </div>
+</div>

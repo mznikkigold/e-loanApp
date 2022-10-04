@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/NewContent/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $('#hiddenDetails').hide()
+        function FetchData() {
+            var userData = new Object();
+
+            userData.dateOfBirth = $('.dobfield').val();
+            userData.studentNumber = $('.studentNumber').val();
+            console.log(userData)
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/AjaxGetCall",
+                data: JSON.stringify(userData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+
+                    if (response != null) {
+                        $('#hiddenDetails').show();
+                        $('#passwordSection').show();
+                        $('#btnGet').hide();
+                        $("#hiddenDetails input").prop("disabled", true);
+                        $('.studentFirstName').val(response.User_First_Name);
+                        $('.studentLastName').val(response.User_Last_Name);
+                        $('.sortCode').val(response.sortCode);
+                        $('.studentAccountNumber').val(response.acctNumber);
+                        $('.bank').val(response.Bank);
+                        $('.gender').val(response.Gender);
+                        $('.studentAddress').val(response.Address);
+                        $('.studentPhoneNumber').val(response.Phone_Number);
+                        $('.nameOfCollege').val(response.Name_Of_College);
+                        $('.studentFaculty').val(response.Name_Of_Faculty);
+                        $('.courseOfStudy').val(response.Programme_Of_Study);
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    /*console.log(response.responseText);*/
+                    alert("User has been Created Already, Kindly Proceed to login")
+                }
+            });
+        };
+
+        function SubmitUserDetails() {
+            var userSubmitData = new Object();
+
+            userSubmitData.dateOfBirth = $('.dobfield').val();
+            userSubmitData.studentNumber = $('.studentNumber').val();
+            userSubmitData.userPassword = $('.userPassword').val();
+            userSubmitData.userConfirmPassword = $('.userConfirmPassword').val();
+            console.log(userSubmitData)
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/Registration",
+                data: JSON.stringify(userSubmitData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+
+                    if (response != null) {
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function (response) {
+                    console.log(response)
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response)
+                    alert('Record Uploaded Succesfully');
+                    $('#uploadImageLink').removeClass('hide');
+                    $('#uploadImageLink').addClass('show');
+                }
+            });
+        };
+
+        function SubmitOpenPayment() {
+            var userSubmitOpenPay = new Object();
+
+            userSubmitOpenPay.Receiver_Account_name = $('#recevierName').val();
+            userSubmitOpenPay.Receiver_SortCode = $('#recevierSortCode').val();
+            userSubmitOpenPay.Reciever_Accountnum = $('#recevierAcctNum').val();
+            userSubmitOpenPay.Reciever_Amount = $('#recevierAmount').val();
+            userSubmitOpenPay.User_Id = $('.senderUserName').val();
+            console.log(userSubmitOpenPay)
+
+            $.ajax({
+                type: "POST",
+                url: "/Student/OpenPayment",
+                data: JSON.stringify(userSubmitOpenPay),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                    $('.contact1-form').reset();
+                    if (response != null && response.status !== "error") {
+                        $('#recevierName').val('')
+                        $('#recevierSortCode').val('')
+                        $('#recevierAcctNum').val('')
+                        $('#recevierAmount').val('')
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                 //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                },
+                error: function (response) {
+                   // alert(response.responseText);
+                    window.location.href = window.location.href;
+                }
+            })
+            $('.contact1-form').reset();
+        };
+
+        function SubmitRequestLoan() {
+            var userSubmitRequestLoan = new Object();
+
+            userSubmitRequestLoan.Receiver_Account_name = $('#recevierName').val();
+            userSubmitRequestLoan.Receiver_SortCode = $('#recevierSortCode').val();
+            userSubmitRequestLoan.Reciever_Accountnum = $('#recevierAcctNum').val();
+            userSubmitRequestLoan.Reciever_Amount = $('#recevierAmount').val();
+            userSubmitRequestLoan.User_Id = $('.senderUserName').val();
+            console.log(userSubmitRequestLoan)
+
+            $.ajax({
+                type: "POST",
+                url: "/Student/RequestLoan",
+                data: JSON.stringify(userSubmitRequestLoan),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                 
+                    if (response != null && response.status !== "error") {
+                        $('#recevierName').val(' ');
+                        $('#recevierSortCode').val(' ');
+                        $('#recevierAcctNum').val(' ');
+                        $('#recevierAmount').val(' ');
+                        $('.contact1-form').reset();
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    $('.contact1-form').reset();
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                    //  alert(response.responseText);
+                    $('.contact1-form').reset();
+                    window.location.href = window.location.href;
+                },
+                error: function (response) {
+                    //   alert(response.responseText);
+                    $('.contact1-form').reset();
+                    window.location.href = window.location.href;
+                }
+            })
+            window.location.href = window.location.href;
+            $('.contact1-form').reset();
+        };
+
+        $(document).on('click', '.approveLoanClass', function () {
+            var adminApprovesLoan = new Object();
+
+            adminApprovesLoan.acceptLoanAnse = 1;
+            adminApprovesLoan.id = $(this).data('id');
+            console.log(adminApprovesLoan)
+            //    return;
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ApproveLoan",
+                data: JSON.stringify(adminApprovesLoan),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+
+                    if (response != null && response.status !== "error") {
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                    //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                },
+                error: function (response) {
+                    //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                }
+            })
+            $('.contact1-form').reset();
+        });
+
+        $(document).on('click', '.approveClass', function () {
+            var adminApprovesLoan = new Object();
+
+            adminApprovesLoan.acceptLoanAnse = 1;
+            adminApprovesLoan.id = $(this).data('id');
+            console.log(adminApprovesLoan)
+            //    return;
+            $.ajax({
+                type: "POST",
+                url: "/Bank/ApproveLoan",
+                data: JSON.stringify(adminApprovesLoan),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+
+                    if (response != null && response.status !== "error") {
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                    //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                },
+                error: function (response) {
+                    //    alert(response.responseText);
+                    window.location.href = window.location.href;
+                }
+            })
+            $('.contact1-form').reset();
+        });
+
+        $(document).on('click', '.rejectClass', function () {
+            var adminRejectsLoan = new Object();
+
+            adminRejectsLoan.rejectLoanAnse = 0;
+            adminRejectsLoan.id = $(this).data('id');
+            console.log(adminRejectsLoan)
+            // return;
+            $.ajax({
+                type: "POST",
+                url: "/Bank/RejectLoan",
+                data: JSON.stringify(adminRejectsLoan),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+
+                    if (response != null && response.status !== "error") {
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                    //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                },
+                error: function (response) {
+                    //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                }
+            })
+            $('.contact1-form').reset();
+        });
+
+        $(document).on('click', '.rejectLoanClass', function () {
+            var adminRejectsLoan = new Object();
+
+            adminRejectsLoan.rejectLoanAnse = 0;
+            adminRejectsLoan.id = $(this).data('id');
+            console.log(adminRejectsLoan)
+            // return;
+            $.ajax({
+                type: "POST",
+                url: "/Admin/RejectLoan",
+                data: JSON.stringify(adminRejectsLoan),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+
+                    if (response != null && response.status !== "error") {
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                    //   alert(response.responseText);
+                    window.location.href = window.location.href;
+                },
+                error: function (response) {
+                    //    alert(response.responseText);
+                    window.location.href = window.location.href;
+                }
+            })
+            $('.contact1-form').reset();
+        });
+
+        function SubmitReturnLoan() {
+            var userSubmitReturnLoan = new Object();
+
+            userSubmitReturnLoan.Receiver_Account_name = $('#recevierName').val();
+            userSubmitReturnLoan.Receiver_SortCode = $('#recevierSortCode').val();
+            userSubmitReturnLoan.Reciever_Accountnum = $('#recevierAcctNum').val();
+            userSubmitReturnLoan.Reciever_Amount = $('#recevierAmount').val();
+            userSubmitReturnLoan.User_Id = $('.senderUserName').val();
+            console.log(userSubmitReturnLoan)
+
+            $.ajax({
+                type: "POST",
+                url: "/Student/ReturnLoan",
+                data: JSON.stringify(userSubmitReturnLoan),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                 
+                    if (response != null && response.status !== "error") {
+                        $('#recevierName').val(' ');
+                        $('#recevierSortCode').val(' ');
+                        $('#recevierAcctNum').val(' ');
+                        $('#recevierAmount').val(' ');
+                        alert("Record saved successfully!");
+                    } else {
+                        alert("Account Does Not Match");
+                    }
+                    window.location.href = window.location.href;
+                },
+                failure: function (response) {
+                  //  alert(response.responseText);
+                },
+                error: function (response) {
+                 //   alert(response.responseText);
+                }
+            })
+            window.location.href = window.location.href;
+            $('.contact1-form').reset();
+        };
+
+        $('#open-sidebar').click(() => {
+            $('#sidebar').addClass('active');
+
+            // show sidebar overlay
+            $('#sidebar-overlay').removeClass('d-none');
+
+        });
+
+
+        $('#sidebar-overlay').click(function () {
+            $('#sidebar').removeClass('active');
+
+            // show sidebar overlay
+            $(this).addClass('d-none');
+
+        });
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imageResult')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function () {
+            $('#upload').on('change', function () {
+                readURL(input);
+            });
+        });
+
+        /*  ==========================================
+            SHOW UPLOADED IMAGE NAME
+        * ========================================== */
+            //var input = $('#upload');
+            //var infoArea = $('#upload-label');
+
+            //input.addEventListener('change', showFileName);
+            //function showFileName(event) {
+            //    var input = event.srcElement;
+            //    var fileName = input.files[0].name;
+            //    infoArea.textContent = 'File name: ' + fileName;
+            //    console.log(infoArea.textContent)
+            //}
+
+
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="margin-bottom:20px">
+        @Html.ActionLink("E Loan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active" style="margin-left: 10px;">
+                    @*<a class="nav-link" href="#">Features</a>*@
+                    @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                <li class="nav-item" style="margin-left: 10px;">
+                    @Html.ActionLink("About", "About", "Home")
+                </li>
+                <li class="nav-item" style="margin-left: 10px;">
+                    @Html.ActionLink("Contact", "Contact", "Home")
+                </li>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <li class="nav-item" style="margin-left: 10px;">
+                        @Html.ActionLink("Admin", "AdminPage", "Admin")
+                    </li>
+                    @*<li class="nav-item" style="margin-left: 10px;">
+                @Html.ActionLink("RoleMappingTables", "Index", "RoleMappingTables")
+            </li>*@
+                    @*<li class="nav-item" style="margin-left: 10px;">
+                @Html.ActionLink("Manage User", "Index", "UserTables1")
+            </li>*@
+                }
+                @if (User.IsInRole("Bank"))
+                {
+                    <li class="nav-item" style="margin-left: 10px;">
+                        @Html.ActionLink("Bank", "BankPage", "Bank")
+                    </li>
+                }
+                <div class="navbar-collapse collapse">
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                        }
+                    }
+                </div>
+                @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown link
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>*@
+            </ul>
+        </div>
+    </nav>
+
+  
+
+
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

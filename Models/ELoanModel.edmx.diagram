@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="afb36172dfde4c8bb40d1f0952d71c8f" Name="Diagram1">
+        <EntityTypeShape EntityType="eLoan_ApplicationModel.AccountTable" Width="1.5" PointX="8.25" PointY="4.25" />
+        <EntityTypeShape EntityType="eLoan_ApplicationModel.RoleMappingTable" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="eLoan_ApplicationModel.RoleTable" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="eLoan_ApplicationModel.Transaction_Table" Width="1.5" PointX="10.5" PointY="2.875" />
+        <EntityTypeShape EntityType="eLoan_ApplicationModel.UserTable" Width="1.5" PointX="6" PointY="2.625" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_AccountTable_UserTable" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_Transaction_Table_AccountTable" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_UserTable_AccountTable" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_RoleMappingTable_RoleTable" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_RoleMappingTable_UserTable" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_UserTable_RoleTable" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_Transaction_Table_Transaction_Table" />
+        <AssociationConnector Association="eLoan_ApplicationModel.FK_Transaction_Table_UserTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

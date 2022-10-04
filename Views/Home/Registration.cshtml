@@ -1,0 +1,120 @@
+﻿@model e_loanApp.Models.UserTable
+@{
+    ViewBag.Title = "Registration";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Student Information</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="wrap">
+                        <div class="login-wrap p-4 p-md-5">
+                            <form action="#" class="signin-form">
+                                <div class="form-group mt-3">
+
+                                    @*@Html.EditorFor(model => model.Email_Address, new { htmlAttributes = new { @class = "form-control studentNumber", @placeholder = "Enter Your Email...!!!" } })
+                                    @Html.ValidationMessageFor(model => model.Email_Address, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })*@
+                                    <input type="text" class="form-control studentNumber" required>
+                                    <label class="form-control-placeholder" for="username">Student Number</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control dobfield" required>
+                                    @*@Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control dobfield" } })
+                                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })*@
+                                    <label class="form-control-placeholder" for="text">Date Of Birth(dd-mm-yyyy)</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="button" id="btnGet" onclick="FetchData()" class="form-control btn btn-primary rounded submit px-3" value="Get Data" />
+                                </div>
+                                <div id="hiddenDetails" style="display:none">
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control studentFirstName" required>
+                                        @*<label class="form-control-placeholder" for="username">Student First Name</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control studentLastName" required>
+                                        @*<label class="form-control-placeholder" for="username">Student Last Name</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control sortCode" required>
+                                        @*<label class="form-control-placeholder" for="username">Sort Code</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control studentAccountNumber" required>
+                                        @*<label class="form-control-placeholder" for="username">Student Account Number</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control bank" required>
+                                        @*<label class="form-control-placeholder" for="username">Bank</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control gender" required>
+                                        @*<label class="form-control-placeholder" for="username">Gender</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control studentAddress" required>
+                                        @*<label class="form-control-placeholder" for="username">Student Address</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control studentPhoneNumber" required>
+                                        @*<label class="form-control-placeholder" for="username">Student Phone Number</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control nameOfCollege" required>
+                                        @*<label class="form-control-placeholder" for="username">Name Of College</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control studentFaculty" required>
+                                        @*<label class="form-control-placeholder" for="username">Faculty</label>*@
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control courseOfStudy" required>
+                                        @*<label class="form-control-placeholder" for="username">Course Of Study</label>*@
+                                    </div>
+                                </div>
+                                <div id="passwordSection" style="display:none">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control userPassword" required>
+                                        <label class="form-control-placeholder" for="text">Password</label>
+                                        @*@Html.EditorFor(model => model.UserPassword, new { htmlattributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })*@
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control userConfirmPassword" required>
+                                        <label class="form-control-placeholder" for="text">Confirm Password</label>
+                                        @*@Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })*@
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="button" onclick="SubmitUserDetails()" value="Submit" class="form-control btn btn-primary rounded submit px-3" />
+                                    </div>
+                                    <div class="form-group hide" id="uploadImageLink">
+                                        <a data-toggle="tab" href="#signup"> @Html.ActionLink("Upload Image", "UploadImage", "Home")</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <p class="text-center">Do you have an account? <a data-toggle="tab" href="#signup"> @Html.ActionLink("Login", "Login", "Home")</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/jqueryajax")*@
+
+
+
+
+@Styles.Render("~/Content/css")
+

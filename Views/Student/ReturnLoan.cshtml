@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "ReturnLoan";
+}
+
+<div class="contact1">
+    <div class="container-contact1">
+        <div class="contact1-pic js-tilt" data-tilt>
+            <img src="https://media.istockphoto.com/photos/college-and-money-picture-id1294784910?b=1&k=20&m=1294784910&s=170667a&w=0&h=ppFrbch8qOEbf13KGyhRGzl_hIf1v1SEqxycF-609Bw=" alt="IMG">
+        </div>
+
+        <form class="contact1-form validate-form">
+            <span class="contact1-form-title">
+                Return Loan
+            </span>
+
+            <p style="color:red">@ViewBag.Total</p>
+
+            <div class="wrap-input1 validate-input" data-validate="Name is required">
+                <input class="input1" id="recevierName" type="text" name="name" placeholder="Account Name">
+                <span class="shadow-input1"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input">
+                <input class="input1" id="recevierSortCode" type="text" name="text" placeholder="Account Sort Code(##-##-##)">
+                <span class="shadow-input1"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input" data-validate="Subject is required">
+                <input class="input1" id="recevierAcctNum" type="number" name="subject" placeholder="Account Number">
+                <span class="shadow-input1"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input" data-validate="Subject is required">
+                <input class="input1" id="recevierAmount" type="number" name="subject" placeholder="Amount">
+                <span class="shadow-input1"></span>
+            </div>
+
+            <div class="container-contact1-form-btn">
+                <div class="form-group" style="width: 200px;">
+                    <input type="button" onclick="SubmitReturnLoan()" value="Submit" class="form-control btn btn-primary rounded submit px-3" />
+                </div>
+            </div>
+
+            <div class="newButton">
+                @Html.ActionLink("🔙 Go Back", "LandingPage", "Home")
+            </div>
+        </form>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/Forms/css")
+

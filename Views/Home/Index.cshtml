@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row" style="display: grid;">
+    <img class="imageCenter" src="https://cdn1.vectorstock.com/i/1000x1000/70/90/e-loans-vector-26967090.jpg" alt="imgae" />
+
+    <div style="display: grid; justify-content: center;">
+        <div class="newButton">
+            @Html.ActionLink("Create Student Account", "Registration", "Home")
+        </div>
+        <div class="newButton">
+            @Html.ActionLink("Login", "Login", "Home")
+        </div>
+    </div>
+</div>

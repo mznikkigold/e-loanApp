@@ -1,0 +1,56 @@
+﻿@model e_loanApp.Models.AccountTable
+
+@{
+    ViewBag.Title = "Student Accounts";
+}
+
+<div>
+    <h4>AccountTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_SortCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_SortCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account_number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account_number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserTable.User_First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserTable.User_First_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Account_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

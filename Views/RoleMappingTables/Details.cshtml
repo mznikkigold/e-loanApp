@@ -1,0 +1,34 @@
+﻿@model e_loanApp.Models.RoleMappingTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RoleMappingTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleTable.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleTable.Role)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserTable.User_First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserTable.User_First_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleMappingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

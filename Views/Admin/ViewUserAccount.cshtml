@@ -1,0 +1,221 @@
+﻿@model IEnumerable<e_loanApp.Models.UserTable>
+
+@{
+    ViewBag.Title = "View User Accounts";
+}
+
+<h2>ViewUserAccount</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateUser")
+</p>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Approve Transaction</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Full Name</th>
+                                    <th>DOB</th>
+                                    <th>Sort-Code</th>
+                                    <th>Acct Num</th>
+                                    <th>Bank</th>
+                                    <th>Gender</th>
+                                    <th>Address</th>
+                                    <th>Phone Num</th>
+                                    <th>Email Address</th>
+                                    <th>College</th>
+                                    <th>Faculty</th>
+                                    <th>Program</th>
+                                    <th>Account Name</th>
+                                    <th>Role</th>
+                                    <th style="width: 40px">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int rowNo = 0; }
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td> @(rowNo += 1)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.User_First_Name) @Html.DisplayFor(modelItem => item.User_Last_Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.sortCode)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.acctNumber)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Bank)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Phone_Number)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Email_Address)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name_Of_College)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name_Of_Faculty)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Programme_Of_Study)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AccountTable.Account_name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.RoleTable.Role)</td>
+                                    <td>@Html.ActionLink("Edit", "ManageAccounts", new { id = item.UserId })</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User_First_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Last_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sortCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.acctNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEmailVerified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivationCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email_Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name_Of_College)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name_Of_Faculty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Programme_Of_Study)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountTable.Account_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleTable.Role)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sortCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.acctNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsEmailVerified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivationCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name_Of_College)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name_Of_Faculty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Programme_Of_Study)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountTable.Account_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleTable.Role)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            </td>
+        </tr>
+    }
+
+</table>*@

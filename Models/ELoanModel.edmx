@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="eLoan_ApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountTable">
+          <Key>
+            <PropertyRef Name="Account_Id" />
+          </Key>
+          <Property Name="Account_Id" Type="int" Nullable="false" />
+          <Property Name="Account_name" Type="varchar" MaxLength="500" />
+          <Property Name="Account_SortCode" Type="varchar" MaxLength="50" />
+          <Property Name="Account_number" Type="varchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Date_Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoleMappingTable">
+          <Key>
+            <PropertyRef Name="RoleMappingId" />
+          </Key>
+          <Property Name="RoleMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="RoleTable">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" />
+          <Property Name="datecreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Transaction_Table">
+          <Key>
+            <PropertyRef Name="Txn_Id" />
+          </Key>
+          <Property Name="Txn_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Receiver_Account_name" Type="varchar" MaxLength="500" />
+          <Property Name="Receiver_Email" Type="varchar" MaxLength="500" />
+          <Property Name="Receiver_SortCode" Type="varchar" MaxLength="50" />
+          <Property Name="Transaction Des" Type="varchar(max)" />
+          <Property Name="Reciever_Accountnum" Type="varchar" MaxLength="50" />
+          <Property Name="TXN_REF" Type="varchar" MaxLength="500" />
+          <Property Name="OpenPayUserId" Type="int" />
+          <Property Name="Transaction_Purpose" Type="varchar" MaxLength="50" />
+          <Property Name="Transaction_status" Type="varchar" MaxLength="50" />
+          <Property Name="amount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Receiver_Bank" Type="varchar" MaxLength="500" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Transaction_Approved" Type="bit" />
+          <Property Name="Transaction_Date" Type="datetime" />
+          <Property Name="account_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="Role_Id" Type="int" />
+          <Property Name="Role_Level" Type="int" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_First_Name" Type="varchar" MaxLength="50" />
+          <Property Name="User_Last_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Student_Number" Type="varchar" MaxLength="100" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="sortCode" Type="varchar" MaxLength="50" />
+          <Property Name="acctNumber" Type="varchar" MaxLength="50" />
+          <Property Name="StudentPicture" Type="varchar(max)" />
+          <Property Name="Bank" Type="varchar" MaxLength="500" />
+          <Property Name="UserPassword" Type="nvarchar(max)" />
+          <Property Name="IsEmailVerified" Type="bit" />
+          <Property Name="AccountId" Type="int" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Phone_Number" Type="varchar" MaxLength="50" />
+          <Property Name="Email_Address" Type="varchar" MaxLength="100" />
+          <Property Name="Name_Of_College" Type="varchar(max)" />
+          <Property Name="Name_Of_Faculty" Type="varchar(max)" />
+          <Property Name="Programme_Of_Study" Type="varchar" MaxLength="500" />
+          <Property Name="Date_Created" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AccountTable_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="0..1" />
+          <End Role="AccountTable" Type="Self.AccountTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AccountTable">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleMappingTable_RoleTable">
+          <End Role="RoleTable" Type="Self.RoleTable" Multiplicity="0..1" />
+          <End Role="RoleMappingTable" Type="Self.RoleMappingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleTable">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleMappingTable">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleMappingTable_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="0..1" />
+          <End Role="RoleMappingTable" Type="Self.RoleMappingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleMappingTable">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_AccountTable">
+          <End Role="AccountTable" Type="Self.AccountTable" Multiplicity="0..1" />
+          <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountTable">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="account_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_Transaction_Table">
+          <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="1" />
+          <End Role="Transaction_Table1" Type="Self.Transaction_Table" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Table">
+              <PropertyRef Name="Txn_Id" />
+            </Principal>
+            <Dependent Role="Transaction_Table1">
+              <PropertyRef Name="Txn_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="0..1" />
+          <End Role="Transaction_Table" Type="Self.Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_AccountTable">
+          <End Role="AccountTable" Type="Self.AccountTable" Multiplicity="0..1" />
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountTable">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_RoleTable">
+          <End Role="RoleTable" Type="Self.RoleTable" Multiplicity="0..1" />
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleTable">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eLoan_ApplicationModelStoreContainer">
+          <EntitySet Name="AccountTable" EntityType="Self.AccountTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMappingTable" EntityType="Self.RoleMappingTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleTable" EntityType="Self.RoleTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_Table" EntityType="Self.Transaction_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccountTable_UserTable" Association="Self.FK_AccountTable_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="AccountTable" EntitySet="AccountTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleMappingTable_RoleTable" Association="Self.FK_RoleMappingTable_RoleTable">
+            <End Role="RoleTable" EntitySet="RoleTable" />
+            <End Role="RoleMappingTable" EntitySet="RoleMappingTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleMappingTable_UserTable" Association="Self.FK_RoleMappingTable_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="RoleMappingTable" EntitySet="RoleMappingTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_AccountTable" Association="Self.FK_Transaction_Table_AccountTable">
+            <End Role="AccountTable" EntitySet="AccountTable" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_Transaction_Table" Association="Self.FK_Transaction_Table_Transaction_Table">
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+            <End Role="Transaction_Table1" EntitySet="Transaction_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_UserTable" Association="Self.FK_Transaction_Table_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_AccountTable" Association="Self.FK_UserTable_AccountTable">
+            <End Role="AccountTable" EntitySet="AccountTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_RoleTable" Association="Self.FK_UserTable_RoleTable">
+            <End Role="RoleTable" EntitySet="RoleTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eLoan_ApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="eLoan_ApplicationEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountTables" EntityType="eLoan_ApplicationModel.AccountTable" />
+          <EntitySet Name="RoleMappingTables" EntityType="eLoan_ApplicationModel.RoleMappingTable" />
+          <EntitySet Name="RoleTables" EntityType="eLoan_ApplicationModel.RoleTable" />
+          <EntitySet Name="Transaction_Table" EntityType="eLoan_ApplicationModel.Transaction_Table" />
+          <EntitySet Name="UserTables" EntityType="eLoan_ApplicationModel.UserTable" />
+          <AssociationSet Name="FK_AccountTable_UserTable" Association="eLoan_ApplicationModel.FK_AccountTable_UserTable">
+            <End Role="UserTable" EntitySet="UserTables" />
+            <End Role="AccountTable" EntitySet="AccountTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_AccountTable" Association="eLoan_ApplicationModel.FK_Transaction_Table_AccountTable">
+            <End Role="AccountTable" EntitySet="AccountTables" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_AccountTable" Association="eLoan_ApplicationModel.FK_UserTable_AccountTable">
+            <End Role="AccountTable" EntitySet="AccountTables" />
+            <End Role="UserTable" EntitySet="UserTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleMappingTable_RoleTable" Association="eLoan_ApplicationModel.FK_RoleMappingTable_RoleTable">
+            <End Role="RoleTable" EntitySet="RoleTables" />
+            <End Role="RoleMappingTable" EntitySet="RoleMappingTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleMappingTable_UserTable" Association="eLoan_ApplicationModel.FK_RoleMappingTable_UserTable">
+            <End Role="UserTable" EntitySet="UserTables" />
+            <End Role="RoleMappingTable" EntitySet="RoleMappingTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_RoleTable" Association="eLoan_ApplicationModel.FK_UserTable_RoleTable">
+            <End Role="RoleTable" EntitySet="RoleTables" />
+            <End Role="UserTable" EntitySet="UserTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_Transaction_Table" Association="eLoan_ApplicationModel.FK_Transaction_Table_Transaction_Table">
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+            <End Role="Transaction_Table1" EntitySet="Transaction_Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Table_UserTable" Association="eLoan_ApplicationModel.FK_Transaction_Table_UserTable">
+            <End Role="UserTable" EntitySet="UserTables" />
+            <End Role="Transaction_Table" EntitySet="Transaction_Table" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccountTable">
+          <Key>
+            <PropertyRef Name="Account_Id" />
+          </Key>
+          <Property Name="Account_Id" Type="Int32" Nullable="false" />
+          <Property Name="Account_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Account_SortCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Account_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Date_Created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserTable" Relationship="eLoan_ApplicationModel.FK_AccountTable_UserTable" FromRole="AccountTable" ToRole="UserTable" />
+          <NavigationProperty Name="Transaction_Table" Relationship="eLoan_ApplicationModel.FK_Transaction_Table_AccountTable" FromRole="AccountTable" ToRole="Transaction_Table" />
+          <NavigationProperty Name="UserTables" Relationship="eLoan_ApplicationModel.FK_UserTable_AccountTable" FromRole="AccountTable" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="RoleMappingTable">
+          <Key>
+            <PropertyRef Name="RoleMappingId" />
+          </Key>
+          <Property Name="RoleMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="RoleTable" Relationship="eLoan_ApplicationModel.FK_RoleMappingTable_RoleTable" FromRole="RoleMappingTable" ToRole="RoleTable" />
+          <NavigationProperty Name="UserTable" Relationship="eLoan_ApplicationModel.FK_RoleMappingTable_UserTable" FromRole="RoleMappingTable" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="RoleTable">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datecreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RoleMappingTables" Relationship="eLoan_ApplicationModel.FK_RoleMappingTable_RoleTable" FromRole="RoleTable" ToRole="RoleMappingTable" />
+          <NavigationProperty Name="UserTables" Relationship="eLoan_ApplicationModel.FK_UserTable_RoleTable" FromRole="RoleTable" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="Transaction_Table">
+          <Key>
+            <PropertyRef Name="Txn_Id" />
+          </Key>
+          <Property Name="Txn_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Receiver_Account_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Receiver_Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Receiver_SortCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_Des" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Reciever_Accountnum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TXN_REF" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OpenPayUserId" Type="Int32" />
+          <Property Name="Transaction_Purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Receiver_Bank" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_Approved" Type="Boolean" />
+          <Property Name="Transaction_Date" Type="DateTime" Precision="3" />
+          <Property Name="account_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="Role_Id" Type="Int32" />
+          <Property Name="Role_Level" Type="Int32" />
+          <NavigationProperty Name="AccountTable" Relationship="eLoan_ApplicationModel.FK_Transaction_Table_AccountTable" FromRole="Transaction_Table" ToRole="AccountTable" />
+          <NavigationProperty Name="Transaction_Table1" Relationship="eLoan_ApplicationModel.FK_Transaction_Table_Transaction_Table" FromRole="Transaction_Table" ToRole="Transaction_Table1" />
+          <NavigationProperty Name="Transaction_Table2" Relationship="eLoan_ApplicationModel.FK_Transaction_Table_Transaction_Table" FromRole="Transaction_Table1" ToRole="Transaction_Table" />
+          <NavigationProperty Name="UserTable" Relationship="eLoan_ApplicationModel.FK_Transaction_Table_UserTable" FromRole="Transaction_Table" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="User_Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="sortCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="acctNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Bank" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
+          <Property Name="AccountId" Type="Int32" />
+          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name_Of_College" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name_Of_Faculty" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Programme_Of_Study" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccountTables" Relationship="eLoan_ApplicationModel.FK_AccountTable_UserTable" FromRole="UserTable" ToRole="AccountTable" />
+          <NavigationProperty Name="AccountTable" Relationship="eLoan_ApplicationModel.FK_UserTable_AccountTable" FromRole="UserTable" ToRole="AccountTable" />
+          <NavigationProperty Name="RoleMappingTables" Relationship="eLoan_ApplicationModel.FK_RoleMappingTable_UserTable" FromRole="UserTable" ToRole="RoleMappingTable" />
+          <NavigationProperty Name="RoleTable" Relationship="eLoan_ApplicationModel.FK_UserTable_RoleTable" FromRole="UserTable" ToRole="RoleTable" />
+          <NavigationProperty Name="Transaction_Table" Relationship="eLoan_ApplicationModel.FK_Transaction_Table_UserTable" FromRole="UserTable" ToRole="Transaction_Table" />
+          <Property Name="Student_Number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_AccountTable_UserTable">
+          <End Type="eLoan_ApplicationModel.UserTable" Role="UserTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.AccountTable" Role="AccountTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AccountTable">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_AccountTable">
+          <End Type="eLoan_ApplicationModel.AccountTable" Role="AccountTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.Transaction_Table" Role="Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountTable">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="account_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_AccountTable">
+          <End Type="eLoan_ApplicationModel.AccountTable" Role="AccountTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.UserTable" Role="UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountTable">
+              <PropertyRef Name="Account_Id" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleMappingTable_RoleTable">
+          <End Type="eLoan_ApplicationModel.RoleTable" Role="RoleTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.RoleMappingTable" Role="RoleMappingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleTable">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleMappingTable">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleMappingTable_UserTable">
+          <End Type="eLoan_ApplicationModel.UserTable" Role="UserTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.RoleMappingTable" Role="RoleMappingTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleMappingTable">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_RoleTable">
+          <End Type="eLoan_ApplicationModel.RoleTable" Role="RoleTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.UserTable" Role="UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleTable">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_Transaction_Table">
+          <End Type="eLoan_ApplicationModel.Transaction_Table" Role="Transaction_Table" Multiplicity="1" />
+          <End Type="eLoan_ApplicationModel.Transaction_Table" Role="Transaction_Table1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Table">
+              <PropertyRef Name="Txn_Id" />
+            </Principal>
+            <Dependent Role="Transaction_Table1">
+              <PropertyRef Name="Txn_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Table_UserTable">
+          <End Type="eLoan_ApplicationModel.UserTable" Role="UserTable" Multiplicity="0..1" />
+          <End Type="eLoan_ApplicationModel.Transaction_Table" Role="Transaction_Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Transaction_Table">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="eLoan_ApplicationModelStoreContainer" CdmEntityContainer="eLoan_ApplicationEntities1">
+          <EntitySetMapping Name="AccountTables">
+            <EntityTypeMapping TypeName="eLoan_ApplicationModel.AccountTable">
+              <MappingFragment StoreEntitySet="AccountTable">
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Account_number" ColumnName="Account_number" />
+                <ScalarProperty Name="Account_SortCode" ColumnName="Account_SortCode" />
+                <ScalarProperty Name="Account_name" ColumnName="Account_name" />
+                <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMappingTables">
+            <EntityTypeMapping TypeName="eLoan_ApplicationModel.RoleMappingTable">
+              <MappingFragment StoreEntitySet="RoleMappingTable">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleMappingId" ColumnName="RoleMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleTables">
+            <EntityTypeMapping TypeName="eLoan_ApplicationModel.RoleTable">
+              <MappingFragment StoreEntitySet="RoleTable">
+                <ScalarProperty Name="datecreated" ColumnName="datecreated" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Table">
+            <EntityTypeMapping TypeName="eLoan_ApplicationModel.Transaction_Table">
+              <MappingFragment StoreEntitySet="Transaction_Table">
+                <ScalarProperty Name="Role_Level" ColumnName="Role_Level" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="account_Id" ColumnName="account_Id" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+                <ScalarProperty Name="Transaction_Approved" ColumnName="Transaction_Approved" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Receiver_Bank" ColumnName="Receiver_Bank" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="Transaction_status" ColumnName="Transaction_status" />
+                <ScalarProperty Name="Transaction_Purpose" ColumnName="Transaction_Purpose" />
+                <ScalarProperty Name="OpenPayUserId" ColumnName="OpenPayUserId" />
+                <ScalarProperty Name="TXN_REF" ColumnName="TXN_REF" />
+                <ScalarProperty Name="Reciever_Accountnum" ColumnName="Reciever_Accountnum" />
+                <ScalarProperty Name="Transaction_Des" ColumnName="Transaction Des" />
+                <ScalarProperty Name="Receiver_SortCode" ColumnName="Receiver_SortCode" />
+                <ScalarProperty Name="Receiver_Email" ColumnName="Receiver_Email" />
+                <ScalarProperty Name="Receiver_Account_name" ColumnName="Receiver_Account_name" />
+                <ScalarProperty Name="Txn_Id" ColumnName="Txn_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTables">
+            <EntityTypeMapping TypeName="eLoan_ApplicationModel.UserTable">
+              <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="Student_Number" ColumnName="Student_Number" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Programme_Of_Study" ColumnName="Programme_Of_Study" />
+                <ScalarProperty Name="Name_Of_Faculty" ColumnName="Name_Of_Faculty" />
+                <ScalarProperty Name="Name_Of_College" ColumnName="Name_Of_College" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email_Address" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="StudentPicture" ColumnName="StudentPicture" />
+                <ScalarProperty Name="acctNumber" ColumnName="acctNumber" />
+                <ScalarProperty Name="sortCode" ColumnName="sortCode" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="User_Last_Name" ColumnName="User_Last_Name" />
+                <ScalarProperty Name="User_First_Name" ColumnName="User_First_Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

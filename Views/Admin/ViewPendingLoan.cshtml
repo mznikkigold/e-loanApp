@@ -1,0 +1,243 @@
+﻿@model IEnumerable<e_loanApp.Models.Transaction_Table>
+
+@{
+    ViewBag.Title = "ViewPendingLoan";
+}
+
+<h2>ViewPendingLoan</h2>
+
+<div>
+    @Html.ActionLink("🔙 Go Back", "AdminPage", "Admin")
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Approve Transaction</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Account Name</th>
+                                    <th>Sort Code</th>
+                                    <th>Account Num</th>
+                                    <th>Purpose</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                    @*<th>Bank</th>*@
+                                    @* <th>Approved</th>
+                                      <th>Account Name</th>*@
+                                    <th>Sort Code</th>
+                                    <th>Account Name</th>
+                                    <th style="width: 40px">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int rowNo = 0; }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@(rowNo += 1)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Receiver_Account_name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Receiver_SortCode)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Reciever_Accountnum)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Transaction_Purpose)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Transaction_status)</td>
+                                        <td>$@Html.DisplayFor(modelItem => item.amount)</td>
+                                        @*<td>@Html.DisplayFor(modelItem => item.Receiver_Bank)</td>*@
+                                        @*<td>@Html.DisplayFor(modelItem => item.Transaction_Approved)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AccountTable.Account_name)</td>*@
+                                        <td>@Html.DisplayFor(modelItem => item.Transaction_Table1.Receiver_SortCode)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UserTable.User_First_Name)</td>
+                                        <td id="hideTxnRef" style="display:none;">@Html.DisplayFor(modelItem => item.TXN_REF)</td>
+                                        <td>
+                                            @*<input type="button" onclick="approveLoan()" value="Submit" class="form-control btn btn-primary rounded submit px-3" />*@
+                                            <span type="button" data-id="@Html.DisplayFor(modelItem => item.TXN_REF, new { data_bind = item.TXN_REF})" class="badge bg-success approveLoanClass">APPROVE</span>
+                                            || <span type="button" data-id="@Html.DisplayFor(modelItem => item.TXN_REF)" class="badge bg-danger rejectLoanClass">REJECT</span>
+                                        </td>
+                                    </tr>
+                                }
+                                @*<tr>
+            <td>2.</td>
+            <td>Clean database</td>
+            <td>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-warning" style="width: 70%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-warning">70%</span></td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Cron job running</td>
+            <td>
+                <div class="progress progress-xs progress-striped active">
+                    <div class="progress-bar bg-primary" style="width: 30%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-primary">30%</span></td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>Fix and squish bugs</td>
+            <td>
+                <div class="progress progress-xs progress-striped active">
+                    <div class="progress-bar bg-success" style="width: 90%"></div>
+                </div>
+            </td>
+            <td><span class="badge bg-success">90%</span></td>
+        </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Receiver_Account_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Receiver_SortCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reciever_Accountnum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transaction_Purpose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transaction_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Receiver_Bank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transaction_Approved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transaction_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role_Level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Receiver_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpenPayUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountTable.Account_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transaction_Table1.Receiver_Account_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transaction_Table2.Receiver_Account_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserTable.User_First_Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver_Account_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver_SortCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reciever_Accountnum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transaction_Purpose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transaction_status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver_Bank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transaction_Approved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transaction_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role_Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role_Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenPayUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountTable.Account_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transaction_Table1.Receiver_Account_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transaction_Table2.Receiver_Account_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserTable.User_First_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Txn_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Txn_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Txn_Id })
+            </td>
+        </tr>
+    }
+
+</table>*@

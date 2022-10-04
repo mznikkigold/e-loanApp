@@ -1,0 +1,64 @@
+﻿@model e_loanApp.Models.AccountTable
+
+@{
+    ViewBag.Title = "Student Accounts";
+}
+
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>AccountTable</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Account_name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Account_name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Account_SortCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Account_SortCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Account_number)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Account_number)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Created)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserTable.User_First_Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserTable.User_First_Name)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" style="background: #01d28e;color:#fff;" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>

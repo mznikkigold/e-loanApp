@@ -1,0 +1,168 @@
+﻿@model e_loanApp.Models.UserTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>UserTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User_First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User_First_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User_Last_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User_Last_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sortCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sortCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acctNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.acctNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEmailVerified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEmailVerified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivationCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivationCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_Of_College)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_Of_College)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_Of_Faculty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_Of_Faculty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Programme_Of_Study)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Programme_Of_Study)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountTable.Account_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountTable.Account_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleTable.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleTable.Role)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

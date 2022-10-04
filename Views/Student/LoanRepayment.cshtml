@@ -1,0 +1,65 @@
+﻿@model IEnumerable<e_loanApp.Models.Transaction_Table>
+@{
+    ViewBag.Title = "LoanRepayment";
+}
+
+<div>
+        @Html.ActionLink("🔙 Go Back", "LandingPage", "Home")
+</div>
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Transaction Table</h3>
+
+                @*<div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Sort Code</th>
+                            <th>Account No</th>
+                            <th>Status</th>
+                            <th>Txn Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int rowNo = 0; }
+                        @foreach (var history in Model)
+                        {
+                        <tr>
+                            <td>@(rowNo += 1)</td>
+                            <td>@Html.DisplayFor(modelItem => history.Receiver_Account_name)</td>
+                            <td>₦@Html.DisplayFor(modelItem => history.amount)</td>
+                            <td><span class="tag tag-success">@Html.DisplayFor(modelItem => history.Receiver_SortCode)</span></td>
+                            <td>@Html.DisplayFor(modelItem => history.Reciever_Accountnum)</td>
+                            <td>@Html.DisplayFor(modelItem => history.Transaction_status)</td>
+                            <td>@Html.DisplayFor(modelItem => history.Transaction_Purpose)</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
